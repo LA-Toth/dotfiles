@@ -1,0 +1,92 @@
+# set ft=bash
+alias ls='ls --color=auto'
+alias l='ls -l --color=auto'
+alias la='ls -lA'
+alias ..='cd ..'
+alias ...='cd ../..'
+
+alias .1='cd ..'
+alias .2='cd ../..'
+alias .3='cd ../../../'
+alias .4='cd ../../../../'
+alias .5='cd ../../../../..'
+alias .6='cd ../../../../../..'
+
+alias rbr=". ~/.bashrc"
+alias rba=". ~/.bash_aliases"
+
+alias vbr="vim ~/.bashrc"
+alias vba="vim ~/.bash_aliases"
+
+alias pv="pvim"
+
+alias sr=s\ r
+alias sqp=s\ qp
+alias sc=s\ c
+alias sm="stew make"
+alias sg="stew go"
+
+alias g=git
+alias gp=g\ push
+alias gc=git\ c
+alias gco=git\ co
+alias gf=git\ fetch
+alias gg=git\ grep
+alias gm=git\ merge
+alias gt=git\ tag
+alias gb=git\ branch
+alias gca=git\ commit\ --amend\ -c\ HEAD
+alias gst=git\ status
+alias gsh=git\ show
+alias gss=git\ show\ --stat
+alias gr=git\ rebase
+alias grc=gr\ --continue
+alias ga=git\ add
+alias gd=git\ diff
+alias gdh=git\ diff\ HEAD
+alias gri=gr\ -i
+alias gcah='git commit --amend -a -C HEAD'
+
+alias gcoa='git checkout wip/panther/active'
+alias gcor='git checkout wip/panther/review'
+alias gra='git rebase -i wip/panther/active'
+alias grr='git rebase -i wip/panther/review'
+alias grm='git rebase -i origin/master'
+
+alias gctmp='git commit -a -m tmp:\ tmp'
+
+function ggam()
+{
+    git status | grep both\ modified | cut -f2- -d: | xargs git add
+}
+
+function ggem()
+{
+    vim `git status | grep both\ modified | cut -f2- -d: | head -n1 `
+}
+
+function ggdhm() {
+    git diff HEAD --  `git status | grep both\ modified | cut -f2- -d: `
+
+}
+
+#alias pgr='precise git review'
+#alias pgry='pgr -y'
+alias gry='git review --yes'
+alias gryr='gry -R'
+
+alias sl=ls
+
+alias sshn=ssh-nostore
+
+alias scbcore=s\ scbcore
+alias scbboot=s\ scbboot
+
+alias droptestdb='(dropdb -p 5431 get_smart_test && createdb -p 5431 get_smart_test && rails db:extensions RAILS_ENV=test && psql -p 5431 get_smart_test < db/structure.sql) 2>/dev/null >&2'
+alias swp='s w p'
+alias swpt='swp -t'
+
+#export VAULT_ADDR=https://vault.example.com
+#export CONSUL_HTTP_ADDR=https://api.consul.example.com
+alias vault-login="export VAULT_TOKEN=\$(vault login -method=ldap -token-only username=$(whoami))"
+alias consul-ro="export CONSUL_HTTP_ADDR=https://api.consul.example.com CONSUL_HTTP_TOKEN=\$(vault read -field token consul/creds/config-ro)"

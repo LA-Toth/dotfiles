@@ -1,0 +1,375 @@
+" set guifont=-misc-fixed-medium-r-normal--14-130-75-75-c-70-iso8859-1
+
+set ch=1		" Make command line two lines high
+
+" Make shift-insert work like in Xterm
+map <S-Insert> <MiddleMouse>
+map! <S-Insert> <MiddleMouse>
+
+" Only do this for Vim version 5.0 and later.
+if version >= 500
+  " I like highlighting strings inside C comments
+  let c_comment_strings=1
+  " Switch on syntax highlighting if it wasn't on yet.
+  if !exists("syntax_on")
+    syntax on
+  endif
+  " Switch on search pattern highlighting.
+  set hlsearch
+  "if has("win32")
+  "  let winhelpfile='windows.hlp'
+  "  map K :execute "!start winhlp32 -k <cword> " . winhelpfile <CR>
+  "endif
+
+  " Set nice colors
+  " background for normal text is light grey
+  " Text below the last line is darker grey
+  " Cursor is green, Cyan when ":lmap" mappings are active
+  " Constants are not underlined but have a slightly lighter background
+  highlight Normal guibg=grey90
+  highlight Cursor guibg=Green guifg=NONE
+  highlight lCursor guibg=Cyan guifg=NONE
+  highlight NonText guibg=grey80
+  highlight Constant gui=NONE guibg=grey95
+  highlight Special gui=NONE guibg=grey95
+
+endif
+
+""saját cuccok
+""set bdir=/Users/panther/vim_backup/
+""set backupcopy=yes
+""set backup
+""set backupdir=/Users/panther/vim_backup/
+"lehet hogy nem kell
+set fileencoding=utf8
+au BufWritePre * let &bex = '-' . strftime("%Y%b%d%X") . '~'
+set sm "show ()
+set cin "cindent
+set ai "autoindent
+set nu "number
+nnoremap <silent> <F4> :TlistToggle<CR>
+nnoremap <silent> <F5> :set makeprg=zwa\ make<CR>
+
+let Tlist_Use_Right_Window=1
+let Tlist_WinWidth = 26
+set guioptions=am "get rid of toolbar
+set encoding=utf-8
+command! CtoCpp :%s/\/\/\(.*\)/\/*\1\*\//<CR>/
+command! CpptoC :%s/\/\*/\/\//<cr>:%s/\*\///<cr>
+command! Q :q<CR>
+set ts=8
+set expandtab
+set statusline=%(\ [%F][buffer:%n-%l/%L-%c]%)%([d:%b\ h:%B]%)
+set laststatus=2
+set mouse=a
+let g:bufExplorerShowDirectories=0
+let g:bufExplorerDefaultHelp=0
+let g:bufExplorerSortBy='name'
+let g:bufExplorerSplitBelow=0
+let g:bufExplorerUseCurrentWindow=1
+color ghost1
+"set shiftwidth=2
+"set tags=./,.,./TAGS,./tags,/home/panther/zwa/zorp-dev-panther-3.3/tags
+set cursorline
+set cindent
+set foldenable
+
+
+set hlsearch
+
+
+function! TlaChanges()
+    exec 'norm 1G'
+    if search("/^\t\* /","W") < 1
+        exec 'norm GG'
+        call append(".","\t\* ")
+    endif
+
+    exec 'norm 1G'
+    if search("^NEWS","W") < 1
+        exec 'norm GG'
+        call append(".","NEWS\-\-")
+    endif
+
+    exec 'vnew'
+    exec 'r !tla diff --diff-options --show-c-function --diff-options --expand-tabs'
+    exec 'norm 1G'
+    exec 'set ft=diff ro nomodified nomodifiable noswapfile'
+    exec '/^* comparing/,/^* modified/y'
+    silent exe "norm! \<C-W>w"
+    exec '1/^\t\*/'
+    exec 'norm p'
+    if search ("^* file meta","W" ) > 0
+        exec '/^* file meta/,/^* /d'
+    endif
+    exec '1,/^NEWS/g/^\*/d'
+    exec '1,/^NEWS/g/^\t\* $/d'
+    exec 'norm 1G'
+
+    if search("^-- ","W") > 0
+        exec '1,/^--/g/^--.*$/d'
+    endif
+
+    if search("^[AMD=].*(\.|=)id$","W") > 0
+        exec '1,/^NEWS/g/^[AMD=].*\.id$/d'
+    endif
+
+    if search("^[AMD=].*\.arch-ids","W") > 0
+        exec '1,/^NEWS/g/^[AMD=].*\.arch-ids/d'
+    endif
+
+    exec '1,/^NEWS/s/^\([AMD]\)\( \|\/\)\(.*\)/\t* \3: \1/'
+    exec 'norm 1G'
+    if search("^=>","W") > 0
+        exec '1,/^NEWS/s/^=> \([^\t]*\)\t/\t* \1: renamed to /'
+    endif
+    exec '1,/^NEWS/s/^\(\t\*.*\)$/\1\r/'
+
+    exec 'norm 1G'
+    if search("^NEWS--","W") > 0
+        exec '.,.d'
+    endif
+
+    exec 'norm 1G'
+    exec 'norm $'
+endfunction
+
+command! -nargs=0 TlaChanges call TlaChanges()
+
+map <F3> <esc>:call TlaChanges()<cr>
+
+function InsertTabWrapper()
+      let col = col('.') - 1
+      if !col || getline('.')[col - 1] !~ '\k'
+          return "\<tab>"
+      else
+          return "\<c-p>"
+      endif
+endfunction
+
+imap <tab> <c-r>=InsertTabWrapper()<cr>
+
+imap ( ()<Left>
+imap [ []<Left>
+imap " <C-V>"<C-V>"<left>
+
+
+function SetSTS()
+  let filename = expand( '%:p' )
+  if  (filename =~ '/home/panther/src' && filename !~  '/home/panther/src/zorpos') || filename =~ '/home/panther/netfilter'
+    " kernel-style formatting
+    set noet
+    set ts=8
+    set sts=8
+    set ai
+    set textwidth=80
+  else
+    set et
+    set ts=8
+    set sts=2
+    set ai
+ "   set foldmethod=syntax
+  endif
+endfunction
+
+autocmd BufNewFile,BufRead *.[ch] SetSTS
+autocmd BufNewFile,BufRead Kconfig SetSTS
+
+function SetTlaLogFormat()
+  set noet
+  set ts=8
+  set sts=8
+  set ai
+endfunction
+
+autocmd BufNewFile,BufRead ??log.* call SetTlaLogFormat()
+au BufNewFile,BufRead ??log.* setfiletype zlog
+
+command! -nargs=0 SetSTS call SetSTS()
+set ts=8
+set sts=2
+set et
+
+function! LastMod()
+    if line("$") > 20
+let l = 20
+    else
+let l = line("$")
+    endif
+    exe "1," . l . "g/Last modified: /s/Last modified: .*/Last modified: " .
+\ strftime("%Y.%m.%e. %H:%M:%S %Z")
+endfun
+
+function! MaintChg()
+    let lno=line(".")
+    exec 'norm 1G'
+    if line("$") > 20
+	let l = 20
+    else
+	let l = line("$")
+    endif
+    if search("^Maintainer: ","W") > 0
+    	exe "1," . l . "g/Maintainer: /s/Maintainer: .*/Maintainer: " . g:debianfullname  . " <" . g:debianemail . ">"
+    endif
+
+    if search("^Packager: ","W") > 0
+	exe "1," . l . "g/Packager: /s/Packager: .*/Packager: " . g:debianfullname  . " <" . g:debianemail . ">"
+   endif
+
+   if search("^Uploaders: ","W") > 0
+   	exe "1," . l . "g/Uploaders: /d"
+   endif
+    exec 'norm '.lno.'G'
+endfun
+
+
+
+" helper for header-comment-generator
+function s:normalise(what)
+    let value=substitute(a:what, '/\*.*\*/', '', 'g')   " kill comments
+    let value=substitute(value, '[ \t]\+', ' ', 'g')    " leave only one whitespace
+    return value
+endfunction
+
+" header-comment-generator
+function HeaderCommentGenerator()
+    let defpos=line(".")        " current position
+    let hdrpos=defpos-2         " where to insert the header comment
+    let endpos=0                " where to position the cursor
+
+    let defline=getline(defpos)                 " definition line
+    let rettype=s:normalise(getline(defpos-1))  " return type
+    " function name
+    let fnname=substitute(defline, '^\([_[:alnum:]]*\).*', '\1', '')
+    " argument list (at least its prefix)
+    let arglist=s:normalise(substitute(defline, '^[^(]*(', '', ''))
+
+    " add lines to argument list until '{'
+    let i=defpos+1
+    while 1
+        let defline=s:normalise(getline(i))
+        if defline =~ '{'
+            break
+        endif
+        let arglist=arglist.defline
+        let i=i+1
+    endwhile
+
+    " insert start-of-comment and function name
+    call append(hdrpos  , '/**')
+    call append(hdrpos+1, ' * '.fnname.':')
+    let hdrpos=hdrpos+2
+
+    " until the arglist gets empty
+    while arglist =~ '[^ \t]'
+        let arg=substitute(arglist, ',.*', '', '')  " 1st arg in the list
+        if arglist =~ ','                           " if the list still contains ','
+            let arglist=substitute(arglist, '^[^,]*,', '', '')  " trim until 1st ','
+        else
+            let arglist=''
+            let arg=substitute(arg, '[ \t]*)[ \t]*$', '', '')   " trim trailing ')'
+        endif
+        if arg =~ '^[ \t]*void[ \t]*'   " don't process (void)
+            continue
+        endif
+        if arg !~ '('                   " normal (eg. not fn pointer) arg
+            let argprev=substitute(arg, '.*\(\<.*\>\).*\<.*\>.*$', '\1', '')    " one but last word for G_GNUC_UNUSED support
+            let arg=substitute(arg, '.*\(\<.*\>\).*$', '\1', '')                " last word
+        else
+            let arg='FIXME: '.arg       " ugly arg type -> fix it manually
+        endif
+
+        if arg == 'G_GNUC_UNUSED'
+            call append(hdrpos, ' * @'.argprev.': not used')    " unused arg
+        else
+            call append(hdrpos, ' * @'.arg.': ')                " => arg description comes here <=
+            if endpos<=0
+                let endpos=hdrpos+1     " store cursor position
+            endif
+        endif
+        let hdrpos=hdrpos+1
+    endwhile
+
+    call append(hdrpos  , ' *')         " separator line
+    call append(hdrpos+1, ' * ')        " => function description comes here <=
+    let hdrpos=hdrpos+2
+    if endpos<=0
+        let endpos=hdrpos               " store cursor position
+    endif
+
+    if rettype !~ '\<void[ \t]*$'       " don't write 'Returns' for void functions
+        call append(hdrpos  , ' *')
+        call append(hdrpos+1, ' * Returns:')
+        call append(hdrpos+2, ' * ')    " => return value description comes here <=
+        let hdrpos=hdrpos+3
+    endif
+
+    call append(hdrpos, ' */')          " close comment
+    call cursor(endpos, 9999)           " move to 1st position that makes sense
+endfunction
+
+" map header comment generating to F2
+map <F2> <esc>:call HeaderCommentGenerator()<cr>
+
+
+function! SwitchSourceHeader()
+  "update!
+  if (expand ("%:t") == expand ("%:t:r") . ".c")
+  find %:t:r.h
+  else
+  find %:t:r.c
+  endif
+endfunction
+
+nmap ,s :call SwitchSourceHeader()<CR>
+
+"map <F5> <esc>:call make('make')<cr>
+map tt :tabnext<CR>
+map tr :tabprev<CR>
+map tn :tabnew<CR>
+map tc :tabclose<CR>
+
+map Q :q<CR>
+
+"bash-like filename completion
+set wildmenu
+set wildmode=longest:full
+
+function! SaveSession()
+  mksession! ~/.saved-vim-session
+endfunction
+
+nmap ,i :call SaveSession()<CR>
+set nocompatible
+
+
+set showtabline=2 "always show tab line
+set showmatch     " show matching parenthesis etc.
+"map gg :s/\(DEBUGP\\|printk\)(KERN_ERR "\(.*\)");/printk(KERN_ERR "kzorp:%s:\2", __FUNCTION__);/<CR>
+"map .. :s/printk(KERN_ERR "kzorp:%s:\(.*\)", __FUNCTION__);/DEBUGP(KERN_ERR "\1");/<CR>
+"map gf i, __FUNCTION__<ESC>
+"map gv ikzorp:%s:<ESC>
+"map gb cwprintk<ESC>
+
+color desert
+set modeline
+set modelines=5
+
+
+au FileType python set ts=8 sts=4 sw=4 ai et si
+au FileType php set ts=8 sts=4 sw=4 ai et si
+au FileType ada set ts=8 sts=4 sw=4 ai et si
+au FileType xslt set ts=8 sts=4 sw=4 ai et si
+au FileType xml set ts=8 sts=4 sw=4 ai et si
+au FileType shell set ts=8 sts=4 sw=4 ai et si
+au FileType java set ts=8 sts=4 sw=4 ai et si
+
+
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+autocmd BufWrite * :call DeleteTrailingWS()
+
+set backspace=start,indent,eol
