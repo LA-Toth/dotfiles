@@ -222,7 +222,10 @@ function! MaintChg()
     exec 'norm '.lno.'G'
 endfun
 
+" au BufNewFile,BufRead *.[ch] runtime! syntax/cp.vim
+au BufNewFile,BufRead *.valgrind setfiletype valgrind
 
+filetype plugin indent on
 
 " helper for header-comment-generator
 function s:normalise(what)
