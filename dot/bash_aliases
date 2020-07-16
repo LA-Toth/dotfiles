@@ -26,11 +26,14 @@ alias sc=s\ c
 alias sm="stew make"
 alias sg="stew go"
 
+
 alias g=git
 alias gp=g\ push
 alias gc=git\ c
+alias gcx=git\ cx
 alias gco=git\ co
 alias gf=git\ fetch
+alias gfa=git\ fetch\ --all
 alias gg=git\ grep
 alias gm=git\ merge
 alias gt=git\ tag
