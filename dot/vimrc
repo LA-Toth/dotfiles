@@ -340,29 +340,67 @@ function! SaveSession()
 endfunction
 
 nmap ,i :call SaveSession()<CR>
-set nocompatible
+"set nocompatible
 
 
 set showtabline=2 "always show tab line
 set showmatch     " show matching parenthesis etc.
-"map gg :s/\(DEBUGP\\|printk\)(KERN_ERR "\(.*\)");/printk(KERN_ERR "kzorp:%s:\2", __FUNCTION__);/<CR>
-"map .. :s/printk(KERN_ERR "kzorp:%s:\(.*\)", __FUNCTION__);/DEBUGP(KERN_ERR "\1");/<CR>
-"map gf i, __FUNCTION__<ESC>
-"map gv ikzorp:%s:<ESC>
-"map gb cwprintk<ESC>
 
-color desert
-set modeline
-set modelines=5
+syn match trailingSpaces "\s\+$"
+hi tSpaces ctermbg=red guibg=red
 
+hi def link trailingSpaces tSpaces
+
+set grepprg=p
+map <F6> <ESC>:cn<CR>
+map <F7> <ESC>:cc<CR>
+map <F8> <ESC>:cp<CR>
+map <F9> <ESC>:colder<CR>
+map <F10> <ESC>:cnewer<CR>
+
+
+function RgrepWordUnderCursor()
+  let cursor = getpos(".")
+  let line = getline(".")
+
+  let start = cursor[2]
+  while (start > 1) && (line[start] =~ '[0-9a-zA-Z_]')
+    let start = start - 1
+  endwhile
+
+  let end = cursor[2]
+  while (end < len(line)) && (line[end] =~ '[0-9a-zA-Z_]')
+    let end = end + 1
+  endwhile
+
+  execute('gr "'.line[start + 1 : end].'" .')
+endfunction
+map <F6> <esc>:call RgrepWordUnderCursor()<cr>
+map <F5> <Esc>gUiw`]
+map <C-F5> <Esc>guiw`]
+
+iab #i #include
+iab #d #define
+
+
+" Bash like keys for the command line
+map <C-A>      <Home>
+map <C-E>      <End>
+map <C-K>      <C-U>
+
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
 
 au FileType python set ts=8 sts=4 sw=4 ai et si
 au FileType php set ts=8 sts=4 sw=4 ai et si
-au FileType ada set ts=8 sts=4 sw=4 ai et si
+au FileType javascript set ts=8 sts=4 sw=4 ai et si
 au FileType xslt set ts=8 sts=4 sw=4 ai et si
+au FileType xsd set ts=8 sts=4 sw=4 ai et si
 au FileType xml set ts=8 sts=4 sw=4 ai et si
-au FileType shell set ts=8 sts=4 sw=4 ai et si
-au FileType java set ts=8 sts=4 sw=4 ai et si
+au FileType sh set ts=8 sts=4 sw=4 ai et si
+au FileType c set ts=8 sts=2 sw=2 ai et si
+au FileType cpp set ts=8 sts=2 sw=2 ai et si
+au FileType cucumber set ts=8 sts=2 sw=2 ai et si
 
 
 func! DeleteTrailingWS()
@@ -372,4 +410,16 @@ func! DeleteTrailingWS()
 endfunc
 autocmd BufWrite * :call DeleteTrailingWS()
 
-set backspace=start,indent,eol
+
+map <F1> :.w !pbcopy<CR>
+map <F2> :r !pbpaste<CR>
+map <F3> :set mouse=a<CR>
+map <F4> :set mouse=v<CR>
+map <F11> gt
+map <F12> :qa<CR>
+""map <F2> /ZWA\><CR>
+""map <F3> :%s/ZWA\>/Stew/g<CR>
+""map <F4> /zwa\><CR>
+""map <F5> :%s/zwa\>/stew/g<CR>
+color desert
+syn on
