@@ -110,6 +110,7 @@ shopt -s histappend
 shopt -s nocaseglob
 
 export CDPATH=.:~/git/work:~/git/my:~/Issues:~
+export SHELL=$(which bash)
 
 if [[ 0 = $UID ]]
 then
