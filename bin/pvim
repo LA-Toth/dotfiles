@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ $# != 1 ]]; then
+  exec vim "$@"
+elif echo "$1" | egrep -q '.+:[[:digit:]]+:?$'; then
+  eval "`echo \"$1\" | sed -E 's/(.*):([[:digit:]]+):?$/exec vim \"\1\" +\2/'`"
+else
+  exec vim "$1"
+fi
