@@ -30,7 +30,7 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-export CDPATH=.:~:~/git:~/git/My:~/git/work
+#export CDPATH=.:~:~/git:~/git/My:~/git/work
 
 export LC_ALL=hu_HU.UTF-8
 export LANG=hu_HU.UTF-8
