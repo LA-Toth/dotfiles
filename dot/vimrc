@@ -414,8 +414,12 @@ endfunc
 autocmd BufWrite * :call DeleteTrailingWS()
 
 
-map <F1> :.w !pbcopy<CR>
-map <F2> :r !pbpaste<CR>
+map <F6> :.w !pbcopy<CR>
+map <F7> :r !pbpaste<CR>
+map <F1> />>>><CR>
+map <C-F1> /<<<<<CR>
+map <C-F2> :!git add %<CR>
+map <F2> :w<CR>:!git add %<CR>
 map <F3> :set mouse=a<CR>
 map <F4> :set mouse=v<CR>
 map <F11> gt
