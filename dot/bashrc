@@ -120,7 +120,7 @@ then
     export PS1='$? \[\033[01;31m\]\h\[\033[01;34m\] \W #\[\033[00m\] '
 else
     #export PS1='$? \[\033[01;32m\]\u@\[\033[01;31m\]\h\[\033[01;34m\] \W $\[\033[00m\] '
-    export PS1='\[\e[0m\]\[\e[2m\]L=$SHLVL \[\e[33m\]\D{%F} \t '"${debian_chroot:+(CHROOT: $debian_chroot)}"' \[\e[32m\]\u\[\e[0m\]  \[\e[2m\]S=$? \w ☃\n\[\e[0;31m\]\h\[\e[0m\] \[\e[01;34m\]\W \$\[\e[0m\] '
+    export PS1='\[\e[0m\]\[\e[2m\]L=$SHLVL \[\e[33m\]\D{%F} \t '"${debian_chroot:+(CHROOT: $debian_chroot)}"' \[\e[0m\]\[\e[2m\]\[\e[0;31;1m\]\h\[\e[0m\]  \[\e[35;1m\]S=$? \[\e[0m\]\[\e[2m\]\w ☃\n\[\e[0;31m\]\u\[\e[0m\] \[\e[01;34m\]\W \$\[\e[0m\] '
 fi
 export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
 
