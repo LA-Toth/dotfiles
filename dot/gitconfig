@@ -13,6 +13,7 @@
 	root = rev-parse --show-toplevel
 	lp1 = log --pretty=oneline -1
 	find = !git ls-files | grep
+	current = branch --show-current
 
 [push]
 	default = tracking
