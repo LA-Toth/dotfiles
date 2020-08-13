@@ -110,7 +110,7 @@ shopt -s histappend
 #shopt -s nocaseglob
 
 export CDPATH=.:~/git/work:~/git/my:~/Issues:~
-shopt -s nullglob
+[[ ${BASH_VERSINFO[0]} -gt 4 ]] && shopt -s nullglob
 shopt -s autocd
 
 export SHELL=$(which bash)
