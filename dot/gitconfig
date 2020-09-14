@@ -27,6 +27,7 @@
 [diff]
 	renames = copy
 	noprefix = true
+	renameLimit = 9999999
 
 [core]
 	excludesfile = ~/.gitignore_global
@@ -46,6 +47,9 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
+
+[rerere]
+	enabled = true
 
 [include]
         path = ~/.config/dotfiles/private/.gitconfig
