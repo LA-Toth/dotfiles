@@ -93,3 +93,5 @@ alias swpt='swp -t'
 #export CONSUL_HTTP_ADDR=https://api.consul.example.com
 alias vault-login="export VAULT_TOKEN=\$(vault login -method=ldap -token-only username=$(whoami))"
 alias consul-ro="export CONSUL_HTTP_ADDR=https://api.consul.example.com CONSUL_HTTP_TOKEN=\$(vault read -field token consul/creds/config-ro)"
+
+alias pah='ping -a localhost'
