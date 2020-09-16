@@ -12,11 +12,14 @@ alias .4='cd ../../../../'
 alias .5='cd ../../../../..'
 alias .6='cd ../../../../../..'
 
-alias rbr=". ~/.bashrc"
-alias rba=". ~/.bash_aliases"
+alias rbr=". ~/.bashrc; test -e ~/.bashrc.local && . ~/.bashrc.local"
+alias rba=". ~/.bash_aliases; test -e ~/.bash_aliases.local && . ~/.bash_aliases.local"
 
 alias vbr="vim ~/.bashrc"
 alias vba="vim ~/.bash_aliases"
+
+alias vbrl="vim ~/.bashrc.local"
+alias vbal="vim ~/.bash_aliases.local"
 
 alias pv="pvim"
 
@@ -71,6 +74,23 @@ function ggem()
 function ggdhm() {
     git diff HEAD --  `git status | grep both\ modified | cut -f2- -d: `
 
+}
+
+function cset() {
+    C=$(git diff | grep '>>>>>>>' | cut -f1 -d. | cut -f2 -d' '| head -n1)
+}
+
+function cg() {
+    local file=$1
+    code $file;
+
+    local other=${file/standalone-metastore/standalone-metastore/metastore-server}
+    gsh $C -- $file $other;
+}
+
+function ggem1()
+{
+    cg `git status | grep both\ modified | cut -f2- -d: | head -n1 `
 }
 
 #alias pgr='precise git review'
