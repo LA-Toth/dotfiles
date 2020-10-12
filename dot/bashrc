@@ -161,3 +161,6 @@ if [ -f ~/Installed/google-cloud-sdk/path.bash.inc ]; then . ~/Installed/google-
 
 # The next line enables shell command completion for gcloud.
 if [ -f ~/Installed/google-cloud-sdk/completion.bash.inc ]; then . ~/Installed/google-cloud-sdk/completion.bash.inc; fi
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
