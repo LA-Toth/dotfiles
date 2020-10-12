@@ -14,6 +14,10 @@
 	lp1 = log --pretty=oneline -1
 	find = !git ls-files | grep
 	current = branch --show-current
+	logpg = !git logp | grep
+	log1 = log -1
+	logp1 = log -p -1
+	stat = show --stat
 
 [push]
 	default = tracking
