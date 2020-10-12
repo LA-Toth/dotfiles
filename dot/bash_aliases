@@ -38,6 +38,7 @@ alias gco=git\ co
 alias gf=git\ fetch
 alias gfa=git\ fetch\ --all
 alias gg=git\ grep
+alias ggn=git\ grep\ -n
 alias gm=git\ merge
 alias gt=git\ tag
 alias gb=git\ branch
@@ -82,15 +83,25 @@ function cset() {
 
 function cg() {
     local file=$1
+    local gsh_arg=$2
     code $file;
 
-    local other=${file/standalone-metastore/standalone-metastore/metastore-server}
-    gsh $C -- $file $other;
+    local other=(
+        ${file/standalone-metastore/standalone-metastore/metastore-server}
+        ${file/standalone-metastore/standalone-metastore/metastore-common}
+    )
+    gsh $2 $C -- $file ${other[@]};
 }
 
 function ggem1()
 {
     cg `git status | grep both\ modified | cut -f2- -d: | head -n1 `
+}
+
+function ggem1x()
+{
+    local gsh_arg=-U${1:-3}
+    cg `git status | grep both\ modified | cut -f2- -d: | head -n1 ` $gsh_arg
 }
 
 #alias pgr='precise git review'
