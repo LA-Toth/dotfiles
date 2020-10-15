@@ -33,7 +33,7 @@ alias sg="stew go"
 alias g=git
 alias gp=g\ push
 alias gc=git\ c
-alias gcx=git\ cx
+alias gcx=git\ c\ --continue
 alias gco=git\ co
 alias gf=git\ fetch
 alias gfa=git\ fetch\ --all
@@ -101,6 +101,12 @@ function ggem1()
 function ggem1x()
 {
     local gsh_arg=-U${1:-3}
+    cg `git status | grep both\ modified | cut -f2- -d: | head -n1 ` $gsh_arg
+}
+
+function ggem1a()
+{
+    local gsh_arg=${1}
     cg `git status | grep both\ modified | cut -f2- -d: | head -n1 ` $gsh_arg
 }
 
