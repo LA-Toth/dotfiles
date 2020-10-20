@@ -112,7 +112,7 @@ export HISTFILESIZE=10000000 HISTSIZE=2000000
 shopt -s histappend
 #shopt -s nocaseglob
 
-export CDPATH=.:~/git/work:~/git/my:~/Issues:~
+export CDPATH=.:~/git/work:~/git/My:~/Issues:~
 [[ ${BASH_VERSINFO[0]} -gt 4 ]] && shopt -s nullglob
 shopt -s autocd
 
