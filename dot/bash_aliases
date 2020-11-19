@@ -132,3 +132,33 @@ alias vault-login="export VAULT_TOKEN=\$(vault login -method=ldap -token-only us
 alias consul-ro="export CONSUL_HTTP_ADDR=https://api.consul.example.com CONSUL_HTTP_TOKEN=\$(vault read -field token consul/creds/config-ro)"
 
 alias pah='ping -a localhost'
+
+if test -e /Applications
+then
+    # macOS
+    # output volume
+    alias ov0="osascript -e 'set volume output volume 0'"
+    alias ov1="osascript -e 'set volume output volume 10'"
+    alias ov2="osascript -e 'set volume output volume 20'"
+    alias ov3="osascript -e 'set volume output volume 30'"
+    alias ov4="osascript -e 'set volume output volume 40'"
+    alias ov5="osascript -e 'set volume output volume 50'"
+    alias ov6="osascript -e 'set volume output volume 60'"
+    alias ov7="osascript -e 'set volume output volume 70'"
+    alias ov8="osascript -e 'set volume output volume 80'"
+    alias ov9="osascript -e 'set volume output volume 90'"
+    alias ov10="osascript -e 'set volume output volume 100'"
+
+    # input volume
+    alias iv0="osascript -e 'set volume  input volume 0'"
+    alias iv1="osascript -e 'set volume  input volume 10'"
+    alias iv2="osascript -e 'set volume  input volume 20'"
+    alias iv3="osascript -e 'set volume  input volume 30'"
+    alias iv4="osascript -e 'set volume  input volume 40'"
+    alias iv5="osascript -e 'set volume  input volume 50'"
+    alias iv6="osascript -e 'set volume  input volume 60'"
+    alias iv7="osascript -e 'set volume  input volume 70'"
+    alias iv8="osascript -e 'set volume  input volume 80'"
+    alias iv9="osascript -e 'set volume  input volume 90'"
+    alias iv10="osascript -e 'set volume input  volume 100'"
+fi
