@@ -84,11 +84,12 @@ function cset() {
 function cg() {
     local file=$1
     local gsh_arg=$2
-    code $file;
+    JAVA_HOME= code $file;
 
     local other=(
         ${file/standalone-metastore/standalone-metastore/metastore-server}
         ${file/standalone-metastore/standalone-metastore/metastore-common}
+        ${file/ql\//parser/}
     )
     gsh $2 $C -- $file ${other[@]};
 }
