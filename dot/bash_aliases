@@ -89,6 +89,7 @@ function cg() {
     local other=(
         ${file/standalone-metastore/standalone-metastore/metastore-server}
         ${file/standalone-metastore/standalone-metastore/metastore-common}
+        ${file/standalone-metastore/standalone-metastore/metastore-client}
         ${file/ql\//parser/}
     )
     gsh $2 $C -- $file ${other[@]};
@@ -110,6 +111,8 @@ function ggem1a()
     local gsh_arg=${1}
     cg `git status | grep both\ modified | cut -f2- -d: | head -n1 ` $gsh_arg
 }
+
+alias ggem2='ggem && ggem1'
 
 #alias pgr='precise git review'
 #alias pgry='pgr -y'
