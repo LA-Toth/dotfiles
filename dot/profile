@@ -13,10 +13,13 @@ if [[ 0 -eq $(echo $PATH | grep /opt/local/bin | wc -l) ]]; then
     export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 fi
 
-if [[ 0 -eq $(echo $PATH | grep $HOME/.gem/ruby/2.5.0/bin | wc -l) ]]; then
-    export PATH=$HOME/.gem/ruby/2.7.0/bin:$PATH
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+#RUBYBIN=$HOME/.rvm/bin
+RUBYBIN=~/.rbenv/versions/3.0.0/bin
+if [[ -e $RUBYBIN && 0 -eq $(echo $PATH | grep $RUBYBIN | wc -l) ]]; then
+    export PATH="$PATH:$RUBYBIN"
 fi
-
+unset RUBYBIN
 
 if [[ -e $HOME/go/bin && 0 -eq $(echo $PATH | grep $HOME/go/bin | wc -l) ]]; then
     export PATH=$PATH:$HOME/go/bin:$PATH
@@ -35,21 +38,17 @@ fi
 export LC_ALL=hu_HU.UTF-8
 export LANG=hu_HU.UTF-8
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-if [[ -e $HOME/.rvm/bin && 0 -eq $(echo $PATH | grep $HOME/.rvm/bin | wc -l) ]]; then
-    export PATH="$PATH:$HOME/.rvm/bin"
-fi
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
 
 # set PATH so it includes user's private bin if it exists
 if [[ -e $HOME/bin && 0 -eq $(echo $PATH | grep $HOME/bin | wc -l) ]]; then
     export PATH=$HOME/bin:$PATH
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
