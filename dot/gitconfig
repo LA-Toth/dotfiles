@@ -63,3 +63,5 @@
 
 [includeIf "gitdir/i:~/src/work/"]
         path = ~/.config/dotfiles/work/.gitconfig
+[pull]
+	rebase = true
