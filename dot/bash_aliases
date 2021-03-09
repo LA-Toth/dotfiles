@@ -81,10 +81,9 @@ function cset() {
     C=$(git diff | grep '>>>>>>>' | cut -f1 -d. | cut -f2 -d' '| head -n1)
 }
 
-function cg() {
+function gshx() {
     local file=$1
     local gsh_arg=$2
-    JAVA_HOME= code $file;
 
     local other=(
         ${file/standalone-metastore/standalone-metastore/metastore-server}
@@ -94,6 +93,12 @@ function cg() {
         ${file/ql\//parser/}
     )
     gsh $2 $C -- $file ${other[@]};
+}
+
+function cg() {
+    local file=$1
+    JAVA_HOME= code $file;
+    gshx "$@"
 }
 
 function ggem1()
