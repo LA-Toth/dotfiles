@@ -19,6 +19,10 @@ RUBYBIN=~/.rbenv/versions/3.0.0/bin
 if [[ -e $RUBYBIN && 0 -eq $(echo $PATH | grep $RUBYBIN | wc -l) ]]; then
     export PATH="$PATH:$RUBYBIN"
 fi
+RUBYBIN=~/.gem/ruby/3.0.0/bin
+if [[ -e $RUBYBIN && 0 -eq $(echo $PATH | grep $RUBYBIN | wc -l) ]]; then
+    export PATH="$PATH:$RUBYBIN"
+fi
 unset RUBYBIN
 
 if [[ -e $HOME/go/bin && 0 -eq $(echo $PATH | grep $HOME/go/bin | wc -l) ]]; then
