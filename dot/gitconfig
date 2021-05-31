@@ -68,3 +68,5 @@
         path = ~/.config/dotfiles/work/.gitconfig
 [pull]
 	rebase = true
+[init]
+	defaultBranch = master
