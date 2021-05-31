@@ -52,6 +52,9 @@ alias ga=git\ add
 alias gd=git\ diff
 alias gdh=git\ diff\ HEAD
 alias gri=gr\ -i
+alias gk=gitk
+alias ggui=g\ gui
+
 alias gcah='git commit --amend -a -C HEAD'
 
 alias gcoa='git checkout wip/panther/active'
@@ -94,6 +97,7 @@ function gshx() {
     )
     gsh $2 $C -- $file ${other[@]};
 }
+
 
 function cg() {
     local file=$1
