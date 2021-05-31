@@ -58,6 +58,9 @@
 [include]
         path = ~/.config/dotfiles/private/.gitconfig
 
+[include]
+        path = ~/.config/dotfiles/.gitconfig
+
 [includeIf "gitdir/i:~/git/work/"]
         path = ~/.config/dotfiles/work/.gitconfig
 
