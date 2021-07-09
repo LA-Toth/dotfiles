@@ -1,0 +1,8 @@
+#!/bin/bash
+if ! test -f ~/.config/ssh-agent2
+then
+    echo ~/.config/ssh-agent2 is missng
+    exit 1
+fi
+. ~/.config/ssh-agent2
+ssh "$@"
