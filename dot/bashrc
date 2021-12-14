@@ -154,6 +154,10 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
+# work
+if [ -d "$HOME/wbin" ] ; then
+    PATH="$HOME/wbin:$PATH"
+fi
 
 [[ -f ~/.bashrc.local ]] && . ~/.bashrc.local
 
