@@ -8,7 +8,6 @@
 	co = checkout
 	c = cherry-pick
 	logp = log --pretty=oneline
-	review = !gr
 	lol = log --graph --pretty=format:\"%C(yellow)%h%Creset%C(cyan)%C(bold)%d%Creset %C(cyan)(%cr)%Creset %C(green)%ce%Creset %s\"
 	root = rev-parse --show-toplevel
 	lp1 = log --pretty=oneline -1
@@ -18,6 +17,7 @@
 	log1 = log -1
 	logp1 = log -p -1
 	stat = show --stat
+	rest = reset
 
 [push]
 	default = tracking
@@ -34,14 +34,14 @@
 	renameLimit = 9999999
 
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = /Users/ltoth/.gitignore_global
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
+	path = 
 
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 
 [log]
@@ -70,3 +70,9 @@
 	rebase = true
 [init]
 	defaultBranch = master
+[dewi]
+	foobar = 4
+[ssh]
+	variant = ssh
+[cola]
+	spellcheck = false

@@ -57,26 +57,34 @@ alias ggui=g\ gui
 
 alias gcah='git commit --amend -a -C HEAD'
 
-alias gcoa='git checkout wip/panther/active'
-alias gcor='git checkout wip/panther/review'
-alias gra='git rebase -i wip/panther/active'
-alias grr='git rebase -i wip/panther/review'
-alias grm='git rebase -i origin/master'
+#alias gcoa='git checkout wip/panther/active'
+#alias gcor='git checkout wip/panther/review'
+#alias gra='git rebase -i wip/panther/active'
+#alias grr='git rebase -i wip/panther/review'
+#alias grm='git rebase -i origin/master'
 
 alias gctmp='git commit -a -m tmp:\ tmp'
 
+
+function _grep_git_modified() {
+    grep -E 'both (modified|added)'
+}
+function grr() {
+    grep -R "$1" .
+}
+
 function ggam()
 {
-    git status | grep both\ modified | cut -f2- -d: | xargs git add
+    git status | _grep_git_modified | cut -f2- -d: | xargs git add
 }
 
 function ggem()
 {
-    vim `git status | grep both\ modified | cut -f2- -d: | head -n1 `
+    vim `git status | _grep_git_modified | cut -f2- -d: | head -n1 `
 }
 
 function ggdhm() {
-    git diff HEAD --  `git status | grep both\ modified | cut -f2- -d: `
+    git diff HEAD --  `git status | _grep_git_modified | cut -f2- -d: `
 
 }
 
@@ -107,19 +115,19 @@ function cg() {
 
 function ggem1()
 {
-    cg `git status | grep both\ modified | cut -f2- -d: | head -n1 `
+    cg `git status | _grep_git_modified | cut -f2- -d: | head -n1 `
 }
 
 function ggem1x()
 {
     local gsh_arg=-U${1:-3}
-    cg `git status | grep both\ modified | cut -f2- -d: | head -n1 ` $gsh_arg
+    cg `git status | _grep_git_modified | cut -f2- -d: | head -n1 ` $gsh_arg
 }
 
 function ggem1a()
 {
     local gsh_arg=${1}
-    cg `git status | grep both\ modified | cut -f2- -d: | head -n1 ` $gsh_arg
+    cg `git status | _grep_git_modified | cut -f2- -d: | head -n1 ` $gsh_arg
 }
 
 alias ggem2='ggem && ggem1'
