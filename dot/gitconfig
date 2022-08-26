@@ -74,5 +74,7 @@
 	foobar = 4
 [ssh]
 	variant = ssh
+[http]
+	postBuffer = 157286400
 [cola]
 	spellcheck = false

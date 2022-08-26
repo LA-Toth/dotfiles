@@ -66,6 +66,10 @@ alias gcah='git commit --amend -a -C HEAD'
 alias gctmp='git commit -a -m tmp:\ tmp'
 
 
+function gcobr() {
+    git checkout `git rev-parse $1`
+}
+
 function _grep_git_modified() {
     grep -E 'both (modified|added)'
 }
