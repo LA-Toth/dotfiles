@@ -34,7 +34,7 @@
 	renameLimit = 9999999
 
 [core]
-	excludesfile = /Users/ltoth/.gitignore_global
+	excludesfile = ~/.gitignore_global
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
