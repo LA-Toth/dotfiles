@@ -147,10 +147,6 @@ alias sl=ls
 
 alias sshn=ssh-nostore
 
-alias scbcore=s\ scbcore
-alias scbboot=s\ scbboot
-
-alias droptestdb='(dropdb -p 5431 get_smart_test && createdb -p 5431 get_smart_test && rails db:extensions RAILS_ENV=test && psql -p 5431 get_smart_test < db/structure.sql) 2>/dev/null >&2'
 alias swp='s w p'
 alias swpt='swp -t'
 
