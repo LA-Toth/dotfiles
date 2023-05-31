@@ -1,0 +1,37 @@
+#Commands also provided by macOS and the commands dir, dircolors, vdir have been installed with the prefix "g".
+#If you need to use these commands with their normal names, you can add a "gnubin" directory to your PATH with:
+test -e /usr/local/opt/coreutils/libexec/gnubin && export  PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+
+if [ -f ~/.zsh_aliases ]; then
+    . ~/.zsh_aliases
+fi
+if [ -f ~/.zsh_aliases.local ]; then
+    . ~/.zsh_aliases.local
+fi
+
+
+export HISTFILESIZE=10000000 HISTSIZE=2000000
+
+
+export CDPATH=.:~/git/work:~/workspace:~/git/My:~
+export LESS=-Fr
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+[[ -e ~/.asdf/asdf.sh ]] && . ~/.asdf/asdf.sh
+[[ -e ~/.asdf/completions/asdf.bash ]] && . ~/.asdf/completions/asdf.bash
+
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+# work
+if [ -d "$HOME/wbin" ] ; then
+    PATH="$HOME/wbin:$PATH"
+fi
+

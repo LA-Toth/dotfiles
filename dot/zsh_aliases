@@ -1,0 +1,49 @@
+alias ls='ls --color=auto'
+alias l='ls -l --color=auto'
+alias la='ls -lA'
+alias ..='cd ..'
+alias ...='cd ../..'
+
+alias .1='cd ..'
+alias .2='cd ../..'
+alias .3='cd ../../../'
+alias .4='cd ../../../../'
+alias .5='cd ../../../../..'
+alias .6='cd ../../../../../..'
+
+alias rbr=". ~/.zshrc; test -e ~/.zshrc.local && . ~/.zshrc.local"
+alias rba=". ~/.zsh_aliases; test -e ~/.zsh_aliases.local && . ~/.zsh_aliases.local"
+
+alias vbr="vim ~/.zshrc-dotfiles"
+alias vba="vim ~/.zsh_aliases"
+
+alias vbrl="vim ~/.zshrc.local"
+alias vbal="vim ~/.zsh_aliases.local"
+
+
+alias g=git
+alias gp=g\ push
+alias gc=git\ c
+alias gcx=git\ c\ --continue
+alias gco=git\ co
+alias gf=git\ fetch
+alias gfa=git\ fetch\ --all
+alias gg=git\ grep
+alias ggn=git\ grep\ -n
+alias gm=git\ merge
+alias gt=git\ tag
+alias gb=git\ branch
+alias gca=git\ commit\ --amend\ -c\ HEAD
+alias gst=git\ status
+alias gsh=git\ show
+alias gss=git\ show\ --stat
+alias gr=git\ rebase
+alias grc=gr\ --continue
+alias ga=git\ add
+alias gd=git\ diff
+alias gdh=git\ diff\ HEAD
+alias gri=gr\ -i
+alias gk=gitk
+alias ggui=g\ gui
+
+alias gcah='git commit --amend -a -C HEAD'
