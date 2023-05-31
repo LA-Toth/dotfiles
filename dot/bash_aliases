@@ -29,6 +29,7 @@ alias sc=s\ c
 alias sm="stew make"
 alias sg="stew go"
 
+alias be='bundle exec'
 
 alias g=git
 alias gp=g\ push
@@ -42,6 +43,7 @@ alias ggn=git\ grep\ -n
 alias gm=git\ merge
 alias gt=git\ tag
 alias gb=git\ branch
+alias gbc='git branch --show-current'
 alias gca=git\ commit\ --amend\ -c\ HEAD
 alias gst=git\ status
 alias gsh=git\ show

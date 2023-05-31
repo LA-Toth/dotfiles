@@ -13,17 +13,21 @@ if [[ 0 -eq $(echo $PATH | grep /opt/local/bin | wc -l) ]]; then
     export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 fi
 
+if [[ 0 -eq $(echo $PATH | grep /opt/local/libexec/gnubin | wc -l) ]]; then
+    export PATH=/opt/local/libexec/gnubin:$PATH
+fi
+
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 #RUBYBIN=$HOME/.rvm/bin
-RUBYBIN=~/.rbenv/versions/3.0.0/bin
-if [[ -e $RUBYBIN && 0 -eq $(echo $PATH | grep $RUBYBIN | wc -l) ]]; then
-    export PATH="$PATH:$RUBYBIN"
-fi
-RUBYBIN=~/.gem/ruby/3.0.0/bin
-if [[ -e $RUBYBIN && 0 -eq $(echo $PATH | grep $RUBYBIN | wc -l) ]]; then
-    export PATH="$PATH:$RUBYBIN"
-fi
-unset RUBYBIN
+#RUBYBIN=~/.rbenv/versions/3.0.0/bin
+#if [[ -e $RUBYBIN && 0 -eq $(echo $PATH | grep $RUBYBIN | wc -l) ]]; then
+#    export PATH="$PATH:$RUBYBIN"
+#fi
+#RUBYBIN=~/.gem/ruby/3.0.0/bin
+#if [[ -e $RUBYBIN && 0 -eq $(echo $PATH | grep $RUBYBIN | wc -l) ]]; then
+#    export PATH="$PATH:$RUBYBIN"
+#fi
+#unset RUBYBIN
 
 if [[ -e $HOME/go/bin && 0 -eq $(echo $PATH | grep $HOME/go/bin | wc -l) ]]; then
     export PATH=$PATH:$HOME/go/bin:$PATH
@@ -55,4 +59,3 @@ fi
 if [[ -e $HOME/bin && 0 -eq $(echo $PATH | grep $HOME/bin | wc -l) ]]; then
     export PATH=$HOME/bin:$PATH
 fi
-

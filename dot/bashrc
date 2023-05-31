@@ -112,7 +112,7 @@ export HISTFILESIZE=10000000 HISTSIZE=2000000
 shopt -s histappend
 #shopt -s nocaseglob
 
-export CDPATH=.:~/git/work:~/git/My:~/Issues:~
+CDPATH=.:~/git/work:~/git/My:~/Issues:~
 [[ ${BASH_VERSINFO[0]} -gt 4 ]] && shopt -s nullglob
 shopt -s autocd
 
@@ -127,7 +127,7 @@ then
     export PS1='$? \[\033[01;31m\]\h\[\033[01;34m\] \W #\[\033[00m\] '
 else
     #export PS1='$? \[\033[01;32m\]\u@\[\033[01;31m\]\h\[\033[01;34m\] \W $\[\033[00m\] '
-    export PS1='\[\e[0m\]\[\e[2m\]L=$SHLVL \[\e[33m\]\D{%F} \t '"${debian_chroot:+(CHROOT: $debian_chroot)}"' \[\e[0m\]\[\e[2m\]\[\e[0;31;1m\]\h\[\e[0m\]  \[\e[35;1m\]S=$? \[\e[0m\]\[\e[2m\]\w\[\e[0;91;1m\]$(parse_git_branch)\[\e[0m\] ☃\n\[\e[0;31m\]\u\[\e[0m\] \[\e[01;34m\]\W \$\[\e[0m\] '
+    export PS1='\[\e[0m\]\[\e[2m\]L=$SHLVL \[\e[33m\]\D{%F} \t '"${debian_chroot:+(CHROOT: $debian_chroot)}"' \[\e[0m\]\[\e[2m\]\[\e[0;31;1m\]\h\[\e[0m\]  \[\e[35;1m\]S=$? \[\e[0m\]\[\e[36m\]\w\[\e[0;91;1m\]$(parse_git_branch)\[\e[0m\] ☃\n\[\e[0;31m\]\u\[\e[0m\] \[\e[01;36m\]\W \$\[\e[0m\] '
 fi
 export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
 
@@ -147,8 +147,11 @@ if ! shopt -oq posix; then
     . /opt/local/etc/bash_completion.sh
   elif [ -f /opt/local/etc/bash_completion ]; then
     . /opt/local/etc/bash_completion
+  elif [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]]; then
+    . "/usr/local/etc/profile.d/bash_completion.sh"
   fi
 fi
+set +x
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
@@ -173,11 +176,12 @@ if [ -f ~/Installed/google-cloud-sdk/path.bash.inc ]; then . ~/Installed/google-
 # The next line enables shell command completion for gcloud.
 if [ -f ~/Installed/google-cloud-sdk/completion.bash.inc ]; then . ~/Installed/google-cloud-sdk/completion.bash.inc; fi
 
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+[[ -e ~/.asdf/asdf.sh ]] && . ~/.asdf/asdf.sh
+[[ -e ~/.asdf/completions/asdf.bash ]] && . ~/.asdf/completions/asdf.bash
+
+PATH=~/.rbenv/shims:$PATH
