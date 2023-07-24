@@ -1,5 +1,10 @@
 # set ft=bash
-alias ls='ls --color=auto'
+
+if [[ -e /Applications ]]; then
+    alias ls='gls --color=auto'
+else
+    alias ls='ls --color=auto'
+fi
 alias l='ls -l --color=auto'
 alias la='ls -lA'
 alias ..='cd ..'
