@@ -12,6 +12,7 @@ __pycache__
 /*.iml
 /.generators
 /.rakeTasks
+/.byebug_history
 
 
 # Created by .ignore support plugin (hsz.mobi)
