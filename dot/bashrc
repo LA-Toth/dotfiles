@@ -119,7 +119,7 @@ shopt -s autocd
 export SHELL=$(which bash)
 
 parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ ( \1 )/'
 }
 
 if [[ 0 = $UID ]]
@@ -150,7 +150,7 @@ if ! shopt -oq posix; then
   elif [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]]; then
      export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
       . "/usr/local/etc/profile.d/bash_completion.sh"
-      [[ -e "/usr/local/etc/bash_completion.d/git-completion.bash" ]] && . /usr/local/etc/bash_completion.d/git-completion.bash 
+      [[ -e "/usr/local/etc/bash_completion.d/git-completion.bash" ]] && . /usr/local/etc/bash_completion.d/git-completion.bash
   fi
 fi
 set +x
