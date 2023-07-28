@@ -20,11 +20,19 @@ may_backup() {
     fi
 }
 
+may_ignore_bash_ssh_agent_files() {
+    if [[ ${WITH_SSH_AGENTS:-1} =  1 ]]; then
+        cat
+    else
+        grep -v ^bash_ssh_agent
+    fi
+}
+
 main() {
     local dstdir="${1:-$HOME}"
     local dstbindir="$dstdir/bin"
 
-    local dotfiles=$(cd "$SRCDIR/dot" &>/dev/null && /bin/ls)
+    local dotfiles=$(cd "$SRCDIR/dot" &>/dev/null && /bin/ls | may_ignore_bash_ssh_agent_files)
     local binfiles=$(cd "$SRCDIR/bin" &>/dev/null && /bin/ls)
 
      mkdir -p "$dstdir"
@@ -38,7 +46,6 @@ main() {
         ln -nfs "$src" "$dst"
     done
 
-    
     for i in $binfiles; do
         local src="$SRCDIR/bin/$i"
         local dst="$dstdir/bin/$i"
