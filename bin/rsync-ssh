@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec rsync -av  --progress  --recursive --update --hard-links --acls --xattrs --owner --group -D -S --links --perms --times --compress --delete --delete-after --stats -e ssh "$@"
