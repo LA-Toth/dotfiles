@@ -1,75 +1,65 @@
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(all-christian-calendar-holidays t)
- '(case-fold-search t)
- '(chess-default-engine (quote (chess-gnuchess chess-crafty chess-phalanx)))
- '(column-number-mode t)
- '(current-language-environment "UTF-8")
- '(default-input-method "rfc1345")
- '(delete-selection-mode nil nil (delsel))
- '(fill-column 120)
- '(global-font-lock-mode t nil (font-lock))
- '(global-semantic-decoration-mode t nil (semantic-decorate-mode))
- '(global-semantic-highlight-edits-mode nil nil (semantic-util-modes))
- '(global-semantic-idle-completions-mode t nil (semantic-idle))
- '(global-semantic-idle-scheduler-mode t nil (semantic-idle))
- '(global-semantic-idle-summary-mode t nil (semantic-idle))
- '(global-semantic-show-parser-state-mode nil nil (semantic-util-modes))
- '(global-semantic-show-unmatched-syntax-mode nil nil (semantic-util-modes))
- '(global-semantic-stickyfunc-mode t nil (semantic-util-modes))
- '(global-senator-minor-mode t nil (senator))
- '(mouse-wheel-follow-mouse t)
- '(mouse-wheel-mode t nil (mwheel))
- '(mouse-yank-at-point t)
- '(partial-completion-mode t nil (complete))
- '(require-final-newline (quote ask))
- '(save-place t nil (saveplace))
- '(scroll-bar-mode (quote right))
- '(semanticdb-global-mode t nil (semanticdb))
- '(show-paren-mode t nil (paren))
- '(speedbar-frame-parameters (quote ((minibuffer) (width . 20) (border-width . 0) (menu-bar-lines . 0) (tool-bar-lines . 0) (unsplittable . t) (set-background-color "black"))))
- '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
- '(uniquify-buffer-name-style (quote forward) nil (uniquify))
- '(view-calendar-holidays-initially t)
- '(which-function-mode t))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
- '(background "blue")
- '(font-lock-builtin-face ((((class color) (background dark)) (:foreground "Turquoise"))))
- '(font-lock-comment-face ((t (:foreground "MediumAquamarine"))))
- '(font-lock-constant-face ((((class color) (background dark)) (:bold t :foreground "DarkOrchid"))))
- '(font-lock-doc-string-face ((t (:foreground "green2"))))
- '(font-lock-function-name-face ((t (:foreground "SkyBlue"))))
- '(font-lock-keyword-face ((t (:bold t :foreground "CornflowerBlue"))))
- '(font-lock-preprocessor-face ((t (:italic nil :foreground "CornFlowerBlue"))))
- '(font-lock-reference-face ((t (:foreground "DodgerBlue"))))
- '(font-lock-string-face ((t (:foreground "LimeGreen"))))
- '(font-lock-type-face ((t (:foreground "#9290ff"))))
- '(font-lock-variable-name-face ((t (:foreground "PaleGreen"))))
- '(font-lock-warning-face ((((class color) (background dark)) (:foreground "yellow" :background "red"))))
- '(highlight ((t (:background "CornflowerBlue"))))
- '(list-mode-item-selected ((t (:background "gold"))))
- '(makefile-space-face ((t (:background "wheat"))))
- '(mode-line ((t (:background "Navy"))))
- '(paren-match ((t (:background "darkseagreen4"))))
- '(region ((t (:background "DarkSlateBlue"))))
- '(show-paren-match ((t (:foreground "black" :background "wheat"))))
- '(show-paren-mismatch ((((class color)) (:foreground "white" :background "red"))))
- '(speedbar-button-face ((((class color) (background dark)) (:foreground "green4"))))
- '(speedbar-directory-face ((((class color) (background dark)) (:foreground "khaki"))))
- '(speedbar-file-face ((((class color) (background dark)) (:foreground "cyan"))))
- '(speedbar-tag-face ((((class color) (background dark)) (:foreground "Springgreen"))))
- '(vhdl-speedbar-architecture-selected-face ((((class color) (background dark)) (:underline t :foreground "Blue"))))
- '(vhdl-speedbar-entity-face ((((class color) (background dark)) (:foreground "darkGreen"))))
- '(vhdl-speedbar-entity-selected-face ((((class color) (background dark)) (:underline t :foreground "darkGreen"))))
- '(vhdl-speedbar-package-face ((((class color) (background dark)) (:foreground "black"))))
- '(vhdl-speedbar-package-selected-face ((((class color) (background dark)) (:underline t :foreground "black"))))
- '(widget-field ((((class grayscale color) (background light)) (:background "DarkBlue")))))
-(load "~/.emacs.d/myemacs.el")
+
+;; Based on Algernon's old .emacs.d repo
+;; commit 86e557c655d90ac91267093f5959e965ffc1b96d
+;; from https://git.madhouse-project.org/algernon/emacs.d.git
+;; I always wanted a simple top-level .emacs (aka. .emacs.d/init.el) file
+:; and it is the simplest.
+;; Only this file is - well, - copied.
+
+(require 'package)
+
+
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")
+                         ("gnu" . "https://elpa.gnu.org/packages/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+
+(package-initialize)
+
+(unless package-archive-contents
+  (package-refresh-contents))
+
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+(use-package auto-compile
+  :init (progn
+          (setq load-prefer-newer t)
+          (require 'auto-compile)
+          (auto-compile-on-load-mode 1)
+          (auto-compile-on-save-mode 1)))
+
+;; Customization goes to ~/.emacs.d/custom.el
+(setq custom-file "~/.emacs.d/custom.el")
+(if (file-exists-p custom-file)
+    (load (file-name-sans-extension custom-file)))
+
+(if (file-exists-p "~/.emacs.d/local.el")
+    (load "~/.emacs.d/local"))
+
+
+;; Dispatch to local snippets.
+;;
+;; Loads ~/.emacs.d/lisp/users/$USER/settings.el, then
+;; ~/.emacs.d/lisp/aec/*, and finally ~/.emacs.d/lisp/users/$USER/*.
+(defun tla-require (path &optional noerror)
+  (when (file-exists-p (concat user-emacs-directory "/lisp/" path))
+    (mapc
+     (lambda (name)
+       (require (intern (concat path "/"
+                                (file-name-sans-extension name)))
+                nil noerror))
+     (directory-files (concat user-emacs-directory
+                              "lisp/" path)
+                      nil "^[^#].*el$"))))
+
+
+(add-to-list 'load-path (concat user-emacs-directory "/lisp"))
+
+(require 'tla/misc)
+(require 'tla/keybindings)
+(require 'tla/packs)
+(require 'tla/ui)

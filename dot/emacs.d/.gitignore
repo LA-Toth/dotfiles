@@ -2,3 +2,9 @@ autosave-list
 *~
 \#*
 *.sw?
+
+/bookmarks
+/elpa
+/eln-cache
+/org-roam.db
+/transient
