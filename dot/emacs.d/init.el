@@ -1,19 +1,12 @@
-
-;; Based on Algernon's old .emacs.d repo
-;; commit 86e557c655d90ac91267093f5959e965ffc1b96d
-;; from https://git.madhouse-project.org/algernon/emacs.d.git
-;; I always wanted a simple top-level .emacs (aka. .emacs.d/init.el) file
-:; and it is the simplest.
-;; Only this file is - well, - copied.
-
 (require 'package)
 
 
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")
+(setq package-archives '(("elpa" . "https://elpa.gnu.org/packages/")
                          ("gnu" . "https://elpa.gnu.org/packages/")
-                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+			 ("melpa-stable" . "https://stable.melpa.org/packages/")
+			 ("melpa" . "https://melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")))
 
 (package-initialize)
 
@@ -32,7 +25,7 @@
           (auto-compile-on-load-mode 1)
           (auto-compile-on-save-mode 1)))
 
-;; Customization goes to ~/.emacs.d/custom.el
+;; customization
 (setq custom-file "~/.emacs.d/custom.el")
 (if (file-exists-p custom-file)
     (load (file-name-sans-extension custom-file)))
