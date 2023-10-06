@@ -43,6 +43,7 @@ alias gcx=git\ c\ --continue
 alias gco=git\ co
 alias gf=git\ fetch
 alias gfa=git\ fetch\ --all
+alias gfu=git\ fetch\ upstream
 alias gg=git\ grep
 alias ggn=git\ grep\ -n
 alias gm=git\ merge
