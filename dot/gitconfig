@@ -18,9 +18,11 @@
 	logp1 = log -p -1
 	stat = show --stat
 	rest = reset
+	staash = stash --all
 
 [push]
 	default = tracking
+	autoSetupRemote = true
 
 [rebase]
 	stat = true
@@ -78,3 +80,7 @@
 	postBuffer = 157286400
 [cola]
 	spellcheck = false
+[column]
+	ui = auto
+[fetch]
+	writeCommitGraph = true
