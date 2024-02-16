@@ -20,6 +20,8 @@
 	rest = reset
 	staash = stash --all
 	col = column --padding 10
+	diffw = diff --word-diff
+	pushf = push --force-with-lease
 
 [push]
 	default = tracking
@@ -41,7 +43,7 @@
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 
 [mergetool "sourcetree"]
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
