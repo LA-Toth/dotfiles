@@ -55,6 +55,8 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+[[ -e ~/.profile.local ]] && . ~/.profile.local
+
 # set PATH so it includes user's private bin if it exists
 if [[ -e $HOME/bin && 0 -eq $(echo $PATH | grep $HOME/bin | wc -l) ]]; then
     export PATH=$HOME/bin:$PATH
