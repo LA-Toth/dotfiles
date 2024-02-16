@@ -20,6 +20,8 @@
 	rest = reset
 	staash = stash --all
 	col = column --padding 10
+	diffw = diff --word-diff
+	pushf = push --force-with-lease
 
 [push]
 	default = tracking

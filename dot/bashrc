@@ -187,3 +187,9 @@ if [ -f ~/Installed/google-cloud-sdk/completion.bash.inc ]; then . ~/Installed/g
 [[ -e ~/.asdf/completions/asdf.bash ]] && . ~/.asdf/completions/asdf.bash
 
 PATH=~/.rbenv/shims:$PATH
+
+source ~/.bashrc.local
+
+source ~/.bashrc.local
+
+source ~/.bashrc.local
