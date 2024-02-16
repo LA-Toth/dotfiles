@@ -19,6 +19,7 @@
 	stat = show --stat
 	rest = reset
 	staash = stash --all
+	col = column --padding 10
 
 [push]
 	default = tracking
