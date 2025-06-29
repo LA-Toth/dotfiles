@@ -19,8 +19,10 @@
 	      ;; Jump to backlinks
 	      ("C-c C-b" . obsidian-backlink-jump)
 	      ;; If you prefer you can use `obsidian-insert-link'
-	      ("C-c C-l" . obsidian-insert-wikilink)))
-
+	      ("C-c C-l" . obsidian-insert-wikilink)
+        ;; Templates
+        ("C-c C-t" . obsidian-apply-template)
+        ))
 
 (global-set-key (kbd "C-c o j") 'obsidian-jump)
 (global-set-key (kbd "C-c o c") 'obsidian-capture)
