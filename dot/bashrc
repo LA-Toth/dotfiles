@@ -188,8 +188,15 @@ if [ -f ~/Installed/google-cloud-sdk/completion.bash.inc ]; then . ~/Installed/g
 
 PATH=~/.rbenv/shims:$PATH
 
-source ~/.bashrc.local
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-source ~/.bashrc.local
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
 
-source ~/.bashrc.local
+# pnpm
+export PNPM_HOME="/home/panther/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
