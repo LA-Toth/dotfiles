@@ -194,3 +194,5 @@ then
     alias iv9="osascript -e 'set volume  input volume 90'"
     alias iv10="osascript -e 'set volume input  volume 100'"
 fi
+
+alias load-esp-idf='. $HOME/esp/esp-idf/export.sh'
