@@ -1,1 +1,3 @@
-../Installed/intellij/bin/idea
+#!/usr/bin/env bash
+
+exec ~/Installed/intellij/bin/idea "$@"
