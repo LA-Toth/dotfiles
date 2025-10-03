@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# TO save something as root, primarily
+
+cat > "${1:-save-`localtime`}"

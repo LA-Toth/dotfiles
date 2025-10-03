@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [[ $# < 2 ]]; then
+    exit 1;
+fi
+
+TEMPDIR="/tmp/$USER.$$"
+
+pushd . >/dev/null 2>&1
+
+mkdir -p "$TEMPDIR"
+
+echo "copying wma..." >&2
+cp -a "$1" "$TEMPDIR/a.wma"
+
+cd "$TEMPDIR" || exit 2
+
+echo "decoding wma..." >&2
+mplayer "a.wma" -ao pcm -vc null -vo null
+rm "a.wma"
+echo "encoding mp3..." >&2
+lame -m m -b 48 --abr 48 audiodump.wav "a.mp3"
+rm audiodump.wav
+
+popd  >/dev/null 2>&1
+echo "copying mp3..." >&2
+cp -a "$TEMPDIR/a.mp3" "$2"
+
+rm -rf  "$TEMPDIR"
+
+
