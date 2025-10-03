@@ -9,6 +9,8 @@
 	c = cherry-pick
 	logp = log --pretty=oneline
 	lol = log --graph --pretty=format:\"%C(yellow)%h%Creset%C(cyan)%C(bold)%d%Creset %C(cyan)(%cr)%Creset %C(green)%ce%Creset %s\"
+	lol2 = log --graph --pretty=format:\"%C(yellow)%h%Creset%C(cyan) (%cr)%Creset %s\"
+	lol3 = log --graph --pretty=format:\"%C(yellow)%h%Creset %s\"
 	root = rev-parse --show-toplevel
 	lp1 = log --pretty=oneline -1
 	find = !git ls-files | grep
