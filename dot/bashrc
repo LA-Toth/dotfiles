@@ -131,7 +131,14 @@ else
 fi
 export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
 
+if uname -a | grep -q microsoft-standard-WSL2; then
+    mkdir -p ~/.screen
+    chmod 700 ~/.screen
+    export SCREENDIR=~/.screen
+fi
 
+# First agent must be in the current shell (both in private and work env),
+# the second is separate, that's "my agent / private agent" in work env
 test -f  ~/.bash_ssh_agent.sh && source ~/.bash_ssh_agent.sh
 test -f  ~/.bash_ssh_agent2.sh && bash ~/.bash_ssh_agent2.sh
 
@@ -153,24 +160,15 @@ if ! shopt -oq posix; then
       [[ -e "/usr/local/etc/bash_completion.d/git-completion.bash" ]] && . /usr/local/etc/bash_completion.d/git-completion.bash
   fi
 fi
-set +x
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-# work
-if [ -d "$HOME/wbin" ] ; then
-    PATH="$HOME/wbin:$PATH"
+## CUSTOMIZED "semi-global" DIRS from /opt and version managers
+if [[ -d /opt/git/bin ]]; then
+    PATH="/opt/git/bin:$PATH"
 fi
 
-if uname -a | grep -q microsoft-standard-WSL2; then
-    mkdir -p ~/.screen
-    chmod 700 ~/.screen
-    export SCREENDIR=~/.screen
-fi
-
-[[ -f ~/.bashrc.local ]] && . ~/.bashrc.local
+[[ -e ~/.asdf/asdf.sh ]] && . ~/.asdf/asdf.sh
+[[ -e ~/.asdf/completions/asdf.bash ]] && . ~/.asdf/completions/asdf.bash
+[[ ! -e ~/.asdf/asdf.sh ]] && export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f ~/Installed/google-cloud-sdk/path.bash.inc ]; then . ~/Installed/google-cloud-sdk/path.bash.inc; fi
@@ -178,27 +176,39 @@ if [ -f ~/Installed/google-cloud-sdk/path.bash.inc ]; then . ~/Installed/google-
 # The next line enables shell command completion for gcloud.
 if [ -f ~/Installed/google-cloud-sdk/completion.bash.inc ]; then . ~/Installed/google-cloud-sdk/completion.bash.inc; fi
 
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[[ -e ~/.yarn/bin ]] && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+[[ -e ~/.rvm/bin ]] && {
+    # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+    export PATH="$PATH:$HOME/.rvm/bin"
+}
 
-
-[[ -e ~/.asdf/asdf.sh ]] && . ~/.asdf/asdf.sh
-[[ -e ~/.asdf/completions/asdf.bash ]] && . ~/.asdf/completions/asdf.bash
-
-PATH=~/.rbenv/shims:$PATH
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
+[[ -e ~/.local/share/pnpm ]] && {
 # pnpm
-export PNPM_HOME="/home/panther/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+}
+
+[[ -e ~/.nvm ]] && {
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+}
+[[ -e ~/.rbenv/shims ]] && PATH=~/.rbenv/shims:$PATH
+
+## Private bin / work bin dirs
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+# work, it has precedence
+if [ -d "$HOME/wbin" ] ; then
+    PATH="$HOME/wbin:$PATH"
+fi
 
 export EDITOR=/usr/bin/vim
+
+## loading local bashrc not committed to the repo, it has to be the last line
+[[ -f ~/.bashrc.local ]] && . ~/.bashrc.local
